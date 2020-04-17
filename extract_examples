@@ -1,0 +1,17 @@
+#all of these should download to a server connected to your hadoop cluster
+#serveral options are listed, as some might not work depending on your environment
+
+#Using beeline
+beeline --outputformat=csv2 -e "select * from tbl_name;" > <output file name>;
+beeline --outputformat=csv2 -f "<path to source folder>" > <output file name>;
+
+#Using Hive CLI
+hive -e 'select * from tbl_name' > <output file name>;
+
+#Using HQL
+INSERT OVERWRITE LOCAL DIRECTORY '<output file name>'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ' , '
+select * from tbl_name;
+
+#Using HDFS
+fs -cat <path to source folder> > <output file name> 
